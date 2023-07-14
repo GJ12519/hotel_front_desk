@@ -4,6 +4,7 @@ import AppFooter from './components/app-footer'
 import AppHeader from './components/app-header'
 import routers from './router'
 
+
 const App = memo(() => {
   return (
     <div>
@@ -12,7 +13,7 @@ const App = memo(() => {
         <div className='page'>{useRoutes(routers)}</div>
         <AppFooter />
       </div>
-    </div>    
+    </div>
   )
 })
 
