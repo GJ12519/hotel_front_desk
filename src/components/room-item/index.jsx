@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { memo, useRef, useState } from 'react'
-import { Carousel } from 'antd';
+import { Carousel, message } from 'antd';
 import { Rating } from '@mui/material'
 
 import { ItemWrapper } from './style'
@@ -8,11 +8,25 @@ import IconArrowLeft from '@/assests/svg/icon-arrow-left';
 import IconArrowRight from '@/assests/svg/icon-arrow-right';
 import Indicator from '@/base-ui/indicator';
 import classNames from 'classnames';
+import { stringToImageArray } from '@/utils';
+import tools from '@/utils/tools';
+import { useNavigate } from 'react-router-dom'
 
 const RoomItem = memo((props) => {
-    const { itemData, itemwidth = "25%", itemClick } = props
+    const { itemData, itemmsg, itemwidth = "25%", itemClick } = props
     const [selectIndex, setSelectIndex] = useState(0)
     const sliderRef = useRef()
+    const navigate = useNavigate();
+
+    // 存在session中的客户数据
+    let Suserinfo = null
+    if (sessionStorage.getItem('userinfo')) {
+        Suserinfo = JSON.parse(
+            tools.uncompile(sessionStorage.getItem("userinfo") || "[]")
+        )
+    }
+
+    let picture_urls = stringToImageArray(itemmsg.picture_urls)
 
     /** 事件处理的逻辑 */
     function controlClickHandle(isNext = true, event) {
@@ -21,7 +35,7 @@ const RoomItem = memo((props) => {
 
         // 最新的索引
         let newIndex = isNext ? selectIndex + 1 : selectIndex - 1
-        const length = itemData.picture_urls.length
+        const length = picture_urls.length
         if (newIndex < 0) newIndex = length - 1
         if (newIndex > length - 1) newIndex = 0
         setSelectIndex(newIndex)
@@ -31,13 +45,24 @@ const RoomItem = memo((props) => {
     }
 
     function itemClickHandle() {
-        if (itemClick) itemClick(itemData)
+        console.log(itemmsg);
+        if (itemClick) itemClick(itemmsg)
+    }
+
+    function clickHandle() {
+        console.log('预订', itemmsg);
+        if (Suserinfo) {
+            if (itemClick) itemClick(itemmsg)
+        } else {
+            message.info('请先进行登录')
+            navigate('/login')
+        }
     }
 
     /** 子元素的赋值 */
     const pictureElement = (
         <div className='cover'>
-            <img src={itemData.picture_url} alt="" />
+            <img src={itemmsg.picture_url} alt="" />
         </div>
     )
 
@@ -54,7 +79,7 @@ const RoomItem = memo((props) => {
             <div className='indicator'>
                 <Indicator selectIndex={selectIndex}>
                     {
-                        itemData?.picture_urls?.map((item, index) => {
+                        picture_urls?.map((item, index) => {
                             return (
                                 <div className="item" key={item}>
                                     <span className={classNames("dot", { active: selectIndex === index })}></span>
@@ -66,7 +91,7 @@ const RoomItem = memo((props) => {
             </div>
             <Carousel dots={false} ref={sliderRef}>
                 {
-                    itemData?.picture_urls?.map(item => {
+                    picture_urls?.map(item => {
                         return (
                             <div className='cover' key={item}>
                                 <img src={item} alt="" />
@@ -79,13 +104,27 @@ const RoomItem = memo((props) => {
     )
 
     return (
-        <ItemWrapper verifycolor={itemData?.verify_info?.text_color || "#39576a"}
+        <ItemWrapper
             itemwidth={itemwidth}
-            onClick={itemClickHandle}
+        // onClick={itemClickHandle}
         >
             <div className='inner'>
-                {!itemData.picture_urls ? pictureElement : sliderElement}
-                <div className='desc'>
+                {!picture_urls.length ? pictureElement : sliderElement}
+                {/* {sliderElement} */}
+                <div className='bottomm'>
+                    <div className='bbbb'>
+                        <div className='typen'>{itemmsg.type_name}</div>
+                        <div className='mainbox'>
+                            <div className='area'>{`面积：${itemmsg.area} 平方米`}</div>
+                            <div className='price'>{`最低房价由￥${itemmsg.price}每晚起`}</div>
+                        </div>
+                        <div className='btnreverse' onClick={clickHandle}>
+                            预订
+                        </div>
+                    </div>
+                </div>
+
+                {/* <div className='desc'>
                     {itemData.verify_info.messages.join(" · ")}
                 </div>
                 <div className='name'>{itemData.name}</div>
@@ -102,14 +141,15 @@ const RoomItem = memo((props) => {
                     {
                         itemData.bottom_info && <span className='extra'>·{itemData.bottom_info?.content}</span>
                     }
-                </div>
+                </div> */}
             </div>
         </ItemWrapper>
     )
 })
 
 RoomItem.propTypes = {
-    itemData: PropTypes.object
+    itemData: PropTypes.object,
+    itemmsg: PropTypes.object,
 }
 
 export default RoomItem

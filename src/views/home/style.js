@@ -2,7 +2,7 @@ import { styled } from "styled-components"
 
 export const HomeWrapper = styled.div`
 >.content{
-    width: 1032px;
+    /* max-width: 1182px; */
     margin: 0 auto;
 }
 `

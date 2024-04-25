@@ -8,6 +8,45 @@ export const ItemWrapper = styled.div`
 
     .inner{
         width: 100%;
+        
+
+        .bottomm{
+          /* height: 100px; */
+          width: 100%;
+          background-color: #ffffff;
+          border: 1px solid #D8D8D8;
+          border-radius: 3px 3px 1px 1px;
+
+          .bbbb{
+              padding: 15px 20px;
+
+            .typen{
+                /* border: 1px solid red; */
+                font-family: Noto Sans SC, sans-serif;
+                font-weight: bolder;
+                margin: 15px 0px;
+                font-size: 16px;
+                letter-spacing: 3px;
+            }
+
+            .mainbox{
+              font-size: 13px;
+              letter-spacing: 3px;
+            }
+            .btnreverse{
+              margin-top: 15px;
+              height: 30px;
+              line-height: 30px;
+              width: 100%;
+              border: 1px solid ;
+              text-align: center;
+              cursor: pointer;
+              &:hover {
+                background-color: ${props => props.theme.isAlpha ? "rgba(255,255,255,.1)" : "#f5f5f5"};
+              }
+            }
+          }
+        }
     }
 
     .cover {
@@ -97,7 +136,7 @@ export const ItemWrapper = styled.div`
     margin: 10px 0 5px;
     font-size: 12px;
     font-weight: 700;
-    color: ${props => props.verifycolor};
+    color: red;
   }
 
   .name {

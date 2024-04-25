@@ -1,27 +1,32 @@
 import { getHomeDiscountData, getHomeGoodPriceData, getHomeHighScoreData, getHomeHotRecommendData, getHomeLongforData, getHomePlusData } from '@/services'
+import { getroommsg, roomregus } from '@/services/modules/room'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchHomeDataAction = createAsyncThunk("fetchdata", (payload, { dispatch }) => {
-    getHomeGoodPriceData().then(res => {
-        dispatch(changeGoodPriceInfoAction(res))
-    })
-    getHomeHighScoreData().then(res => {
-        dispatch(changeHighScoreInfoAction(res))
-    })
-    getHomeDiscountData().then(res => {
-        dispatch(changeDiscountInfoAction(res))
-    })
-    getHomeHotRecommendData().then(res => {
-        dispatch(changeRecommendInfoAction(res))
-    })
-    getHomeLongforData().then(res => {
-        dispatch(changeLongforInfoAction(res))
-    })
-    getHomePlusData().then(res => {
-        dispatch(changePlusInfoAction(res))
+    // getHomeGoodPriceData().then(res => {
+    //     dispatch(changeGoodPriceInfoAction(res))
+    // })
+    // getHomeHighScoreData().then(res => {
+    //     dispatch(changeHighScoreInfoAction(res))
+    // })
+    // getHomeDiscountData().then(res => {
+    //     dispatch(changeDiscountInfoAction(res))
+    // })
+    // getHomeHotRecommendData().then(res => {
+    //     dispatch(changeRecommendInfoAction(res))
+    // })
+    // getHomeLongforData().then(res => {
+    //     dispatch(changeLongforInfoAction(res))
+    // })
+    // getHomePlusData().then(res => {
+    //     console.log(res);
+    //     dispatch(changePlusInfoAction(res))
+    // })
+    getroommsg().then(res => {
+        console.log(res.results);
+        dispatch(changeRoomInfoAction(res.results))
     })
 })
-
 
 const homeSlice = createSlice({
     name: "home",
@@ -31,7 +36,9 @@ const homeSlice = createSlice({
         discountInfo: {},
         recommendInfo: {},
         longforInfo: {},
-        plusInfo: {}
+        plusInfo: {},
+        roominfo: {},
+        userinfo: {}
     },
     reducers: {
         changeGoodPriceInfoAction(state, { payload }) {
@@ -50,7 +57,15 @@ const homeSlice = createSlice({
             state.longforInfo = payload
         },
         changePlusInfoAction(state, { payload }) {
+            console.log('111', payload);
             state.plusInfo = payload
+        },
+        changeRoomInfoAction(state, { payload }) {
+            console.log('payload', payload);
+            state.roominfo = payload
+        },
+        changeUserinfoAction(state, { payload }) {
+            state.userinfo = payload
         }
     },
     extraReducers: {
@@ -66,7 +81,9 @@ export const {
     changeDiscountInfoAction,
     changeRecommendInfoAction,
     changeLongforInfoAction,
-    changePlusInfoAction
+    changePlusInfoAction,
+    changeRoomInfoAction,
+    changeUserinfoAction
 } = homeSlice.actions
 
 export default homeSlice.reducer

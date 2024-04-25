@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { LeftWrapper } from './style'
-import IconLogo from '@/assests/svg/icon_logo'
+import IconLogo from '@/assests/img/hotellogo.png'
 import { useNavigate } from 'react-router-dom'
 
 const HeaderLeft = memo(() => {
@@ -12,7 +12,9 @@ const HeaderLeft = memo(() => {
     return (
         <LeftWrapper>
             <div className='logo' onClick={logoClickHandle}>
-                <IconLogo />
+                {/* <IconLogo /> */}
+                <img src={IconLogo} alt="" />
+                <span>XingWang</span>
             </div>
         </LeftWrapper>
     )

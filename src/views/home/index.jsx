@@ -9,6 +9,7 @@ import HomeLongfor from './c-cpns/home-longfor'
 import HomeSectionV1 from './c-cpns/home-section-v1'
 import HomeSectionV2 from './c-cpns/HomeSectionV2'
 import HomeSectionV3 from './c-cpns/home-sextionV3'
+import HomeNew from './c-cpns/home-new'
 
 
 const Home = memo(() => {
@@ -29,14 +30,16 @@ const Home = memo(() => {
 
     return (
         <HomeWrapper>
+            {/* 轮播 */}
             <HomeBanner />
             <div className='content'>
-                {isEmptyO(discountInfo) && <HomeSectionV2 infoData={discountInfo} />}
+                <HomeNew />
+                {/* {isEmptyO(discountInfo) && <HomeSectionV2 infoData={discountInfo} />}
                 {isEmptyO(recommendInfo) && <HomeSectionV2 infoData={recommendInfo} />}
                 {isEmptyO(longforInfo) && <HomeLongfor infoData={longforInfo} />}
                 {isEmptyO(goodPriceInfo) && <HomeSectionV1 infoData={goodPriceInfo} />}
                 {isEmptyO(highScoreInfo) && <HomeSectionV1 infoData={highScoreInfo} />}
-                {isEmptyO(plusInfo) && <HomeSectionV3 infoData={plusInfo} />}
+                {isEmptyO(plusInfo) && <HomeSectionV3 infoData={plusInfo} />} */}
             </div>
         </HomeWrapper>
     )

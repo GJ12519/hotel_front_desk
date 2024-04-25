@@ -17,7 +17,7 @@ const Entrie = memo(() => {
 
     return (
         <EntireWrapper>
-            <EntireFilter />
+            {/* <EntireFilter /> */}
             <EntireRooms />
             <EntirePagination />
         </EntireWrapper>

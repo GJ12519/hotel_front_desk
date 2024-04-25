@@ -1,4 +1,5 @@
 import hyRequest from "..";
+import newRequest from "../new";
 
 export function getHomeGoodPriceData() {
     return hyRequest.get({

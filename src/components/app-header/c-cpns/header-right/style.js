@@ -5,6 +5,7 @@ flex:1;
 display: flex;
 justify-content: flex-end;
 align-items: center;
+margin-right: 50px;
 
 color: ${props => props.theme.text.primaryColor};
 font-weight: 600;
@@ -46,6 +47,7 @@ font-weight: 600;
     ${props => props.theme.mixin.boxShadow};
 
     .panel {
+      z-index: 9999;
       position: absolute;
       top: 54px;
       right: 0;

@@ -22,12 +22,13 @@ const EntireRooms = memo((props) => {
     return (
         <RoomsWrapper>
             <h2 className='title'>{totalCount}多处住所</h2>
-            <div className='list'></div>
+            {/* <div className='list'></div> */}
             <div className='list'>
                 {
                     roomList?.map((item) => {
+                        console.log(item);
                         return (
-                            <RoomItem itemData={item} itemwidth="20%" key={item._id} itemClick={itemClickHandle} />
+                            <RoomItem itemData={item} itemwidth="0%" key={item._id} itemClick={itemClickHandle} />
                         )
                     })
                 }
