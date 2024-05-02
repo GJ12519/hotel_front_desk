@@ -58,6 +58,7 @@ const Room = () => {
         setIsModal(true);
     }
 
+    // 此处需要增加客房数量的显示，并且针对无客房的将其设为灰色（可以在useeffect进行请求）
     const handleOk = async () => {
         try {
             const values = await form.validateFields();
@@ -77,14 +78,14 @@ const Room = () => {
             // 执行预订
             const reserveRes = await reserveAorder(rest)
             console.log('456456', reserveRes);
-            if (reserveRes && reserveRes?.status == 200) {
+            if (reserveRes && reserveRes?.status === 200) {
                 // 有客房
                 console.log('有');
                 message.info(`恭喜您预订${reserveRes.results}成功，请在规定时间内入住`)
-            } else if (reserveRes && reserveRes?.status == 202) {
+            } else if (reserveRes && reserveRes?.status === 202) {
                 // 无客房
                 console.log('无');
-                message.info(`恭喜您预订${reserveRes.results}成功，请在预计时间内入住`)
+                message.error(reserveRes?.message ?? "")
             } else {
                 message.error('出错了，请联系客服')
             }
